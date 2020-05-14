@@ -23,13 +23,13 @@ int main(int argc, string argv[])
     }
     for (int i = 0, n = strlen(argv[1]); i < n; i++)
     {
-        if ( isdigit(argv[1][i]) )
+        if (isdigit(argv[1][i]))
         {
         }
         else
         {
-        printf("Usage: ./caesar key\n");
-        return 1;
+            printf("Usage: ./caesar key\n");
+            return 1;
         }
     }
     
@@ -41,24 +41,24 @@ int main(int argc, string argv[])
     for (int i = 0, n = strlen(s); i < n; i++)
     {
         // convert uppercase plaintext letters to uppercase ciphertext letters
-        if ( isupper(s[i]))
+        if (isupper(s[i]))
         {
             int alphaindexu = ((s[i] - 65 + key) % 26) + 65;
             printf("%c", alphaindexu);
         }
         // convert lowercase plain text letters to lowercase ciphertext letters
-        else if ( islower(s[i]))
+        else if (islower(s[i]))
         {
             int alphaindexl = ((s[i] - 97 + key) % 26) + 97;
             printf("%c", alphaindexl);
         }
         // print spaces from plaintext input to ciphertext output
-        else if ( isspace(s[i]))
+        else if (isspace(s[i]))
         {
             printf(" ");
         }
         // print punction from plaintext input to ciphertext output
-        else if ( ispunct(s[i]))
+        else if (ispunct(s[i]))
         {
             printf("%c", s[i]);
         }
