@@ -236,7 +236,7 @@ bool is_tie(int min)
             cans_rem++;
         }
     }
-    if (cans_rem / 2 == flag)
+    if (cans_rem - 1 == flag)
     {
         return true;
     }
