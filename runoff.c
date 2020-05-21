@@ -133,11 +133,11 @@ bool vote(int voter, int rank, string name)
     
     for (int i = 0; i < candidate_count; i++)
     {
-            if (strcmp(candidates[i].name, name) == 0)
-            {
-                preferences[voter][rank] = i;
-                return true;
-            }
+        if (strcmp(candidates[i].name, name) == 0)
+        {
+            preferences[voter][rank] = i;
+            return true;
+        }
     }
     return false;
 }
@@ -147,11 +147,11 @@ void tabulate(void)
 {
 
     for (int k = 0; k < candidate_count; k++)
-        {
+    {
 
-            for (int i = 0; i < voter_count; i++)
-            {
-                int j = 0;
+        for (int i = 0; i < voter_count; i++)
+        {
+            int j = 0;
             if (preferences[i][j] == k && candidates[k].eliminated == false)
             {
                 candidates[k].votes++;
@@ -161,8 +161,8 @@ void tabulate(void)
             {
                 candidates[preferences[i][j + 1]].votes++;
             }
-            }
         }
+    }
     return;
 }
 
@@ -172,11 +172,11 @@ bool print_winner(void)
     int votes_nfw = voter_count / 2;
     for (int i = 0; i < candidate_count; i++)
     {
-            if (candidates[i].votes > (votes_nfw))
-            {
-                printf("%s\n", candidates[i].name);
-                return true;
-            }
+        if (candidates[i].votes > (votes_nfw))
+        {
+            printf("%s\n", candidates[i].name);
+            return true;
+        }
     }
     return false;
 }
@@ -204,15 +204,14 @@ bool is_tie(int min)
     
     for (int i = 0; i < candidate_count; i++)
     {
-            if (candidates[i].eliminated == false && candidates[i].votes == min)
-            {
-                flag++;
-            }
-            if (candidates[i].eliminated == false)
-            {
-                cans_rem++;
-                
-            }
+        if (candidates[i].eliminated == false && candidates[i].votes == min)
+        {
+            flag++;
+        }
+        if (candidates[i].eliminated == false)
+        {
+            cans_rem++;
+        }
     }
     if (cans_rem == flag)
     {
