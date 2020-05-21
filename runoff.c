@@ -171,7 +171,7 @@ void tabulate(void)
 
             else if (preferences[i][j] == k)
             {
-                candidates[k].votes++;
+                candidates[preferences[i][j]].votes++;
             }
         }
     for (int k = 0; k < candidate_count; k++)
