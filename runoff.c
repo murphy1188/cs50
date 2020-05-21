@@ -83,18 +83,6 @@ int main(int argc, string argv[])
 
         printf("\n");
     }
-    // Test code - need to remove 
-
-    for (int i= 0; i < voter_count; i++)
-    {
-        for (int j = 0; j < candidate_count; j++)
-        {
-            printf("Array [%i][%i] = %i ", i, j, preferences[i][j]);
-        }
-        printf("\n");
-    }
-
-// End test code
 
     // Keep holding runoffs until winner exists
     while (true)
@@ -175,10 +163,6 @@ void tabulate(void)
             }
             }
         }
-    for (int k = 0; k < candidate_count; k++)
-    {
-        printf("%s : %i\n", candidates[k].name, candidates[k].votes);
-    }
     return;
 }
 
@@ -207,7 +191,6 @@ int find_min(void)
         if (candidates[i].votes < min && candidates[i].eliminated == false)
         {
             min = candidates[i].votes;
-            printf("The lowest vote total is %i\n", min);
         }
     }
     return min;
@@ -225,13 +208,11 @@ bool is_tie(int min)
             {
                 flag++;
             }
-    }
-    for (int i = 0; i < candidate_count; i++)
-    {
-        if (candidates[i].eliminated == false)
-        {
-            cans_rem++;
-        }
+            if (candidates[i].eliminated == false)
+            {
+                cans_rem++;
+                
+            }
     }
     if (cans_rem == flag)
     {
