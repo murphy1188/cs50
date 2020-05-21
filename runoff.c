@@ -221,14 +221,10 @@ bool is_tie(int min)
     
     for (int i = 0; i < candidate_count; i++)
     {
-        for (int j = i + 1; j < candidate_count; j++)
-        {
-            if (candidates[i].eliminated == false && candidates[i].votes == candidates[j].votes)
+            if (candidates[i].eliminated == false && candidates[i].votes == min)
             {
                 flag++;
-                printf("Candidates %s (%i votes) and %s (%i votes) are tied\n", candidates[i].name, candidates[i].votes, candidates[j].name, candidates[j].votes);
             }
-        }
     }
     for (int i = 0; i < candidate_count; i++)
     {
@@ -237,14 +233,11 @@ bool is_tie(int min)
             cans_rem++;
         }
     }
-    if (cans_rem - 1 == flag)
+    if (cans_rem == flag)
     {
         return true;
     }
-    else
-    {
     return false;
-    }
 }
 
 // Eliminate the candidate (or candidiates) in last place
