@@ -185,7 +185,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in bottom right corner
-            else if ((i == height - 1) && (j == width - 1))
+            else if ((i == height) && (j == width))
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j - 1].rgbtRed + ogimage[i - 1][j].rgbtRed + ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j - 1].rgbtGreen + ogimage[i - 1][j].rgbtGreen + ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen) / 4);
