@@ -100,9 +100,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         }
     }
     
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i <= height; i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j <= width; j++)
         {
             //Blur pixels not on edges
             if ((i > 0 && (i < height - 1)) && (j > 0 && j < (width - 1)))
@@ -115,7 +115,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top row/0th row if not in corner
-            else if (i == 0 && j > 0 && j < width)
+            if (i == 0 && j > 0 && j < width)
             {
                 int avgRed = nearbyint(((float)ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed + ogimage[i + 1][j + 1].rgbtRed) / 6);
                 int avgGreen = nearbyint(((float)ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen + ogimage[i + 1][j + 1].rgbtGreen) / 6);
@@ -125,7 +125,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in 0th column if not in corner
-            else if (i > 0 && i < height && j == 0)
+            if (i > 0 && i < height && j == 0)
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j].rgbtRed + ogimage[i - 1][j + 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed + ogimage[i + 1][j].rgbtRed + ogimage[i + 1][j + 1].rgbtRed) / 6);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j].rgbtGreen + ogimage[i - 1][j + 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen + ogimage[i + 1][j + 1].rgbtGreen) / 6);
@@ -135,7 +135,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in bottom row (height - 1) if not in corner
-            else if ((i == height - 1) && (j > 0 && (j < width)))
+            if ((i == height - 1) && (j > 0 && (j < width)))
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j - 1].rgbtRed + ogimage[i - 1][j].rgbtRed + ogimage[i - 1][j + 1].rgbtRed + ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed) / 6);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j - 1].rgbtGreen + ogimage[i - 1][j].rgbtGreen + ogimage[i - 1][j + 1].rgbtGreen + ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen) / 6);
@@ -145,7 +145,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in last column (width - 1) if not in corner
-            else if ((i > 0 && (i < height)) && (j == width - 1))
+            if ((i > 0 && (i < height)) && (j == width - 1))
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j - 1].rgbtRed + ogimage[i - 1][j].rgbtRed + ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed) / 6);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j - 1].rgbtGreen + ogimage[i - 1][j].rgbtGreen + ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen) / 6);
@@ -155,7 +155,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top left corner
-            else if (i == 0 && j == 00)
+            if (i == 0 && j == 00)
             {
                 int avgRed = nearbyint(((float)ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed + ogimage[i + 1][j].rgbtRed + ogimage[i + 1][j + 1].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen + ogimage[i + 1][j + 1].rgbtGreen) / 4);
@@ -165,7 +165,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top right corner
-            else if (i == 0 && (j == width - 1))
+            if (i == 0 && (j == width - 1))
             {
                 int avgRed = nearbyint(((float)ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen) / 4);
@@ -175,7 +175,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in bottom left corner
-            else if ((i == height - 1) && j == 0)
+            if ((i == height - 1) && j == 0)
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j].rgbtRed + ogimage[i - 1][j + 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j].rgbtGreen + ogimage[i - 1][j + 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen) / 4);
@@ -185,7 +185,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in bottom right corner
-            else if ((i == (height - 1)) && (j == (width - 1)))
+            if ((i == (height - 1)) && (j == (width - 1)))
             {
                 int avgRed = nearbyint(((float)ogimage[i - 1][j - 1].rgbtRed + ogimage[i - 1][j].rgbtRed + ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i - 1][j - 1].rgbtGreen + ogimage[i - 1][j].rgbtGreen + ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen) / 4);
@@ -195,7 +195,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top right corner
-            else if (i == 0 && j == width)
+            if (i == 0 && j == width)
             {
                 int avgRed = nearbyint(((float)ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed) / 4);
                 int avgGreen = nearbyint(((float)ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen) / 4);
