@@ -115,7 +115,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top row/0th row if not in corner
-            if (i == 0 && j > 0 && j < width)
+            if (i == 0 && j > 0 && j < width - 1)
             {
                 int avgRed = round(((float)ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i][j + 1].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed + ogimage[i + 1][j + 1].rgbtRed) / 6);
                 int avgGreen = round(((float)ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i][j + 1].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen + ogimage[i + 1][j + 1].rgbtGreen) / 6);
@@ -195,7 +195,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = avgBlue;
             }
             // Blur pixels in top right corner
-            if (i == 0 && j == width)
+            if (i == 0 && j == width - 1)
             {
                 int avgRed = round(((float)ogimage[i][j - 1].rgbtRed + ogimage[i][j].rgbtRed + ogimage[i + 1][j - 1].rgbtRed + ogimage[i + 1][j].rgbtRed) / 4);
                 int avgGreen = round(((float)ogimage[i][j - 1].rgbtGreen + ogimage[i][j].rgbtGreen + ogimage[i + 1][j - 1].rgbtGreen + ogimage[i + 1][j].rgbtGreen) / 4);
