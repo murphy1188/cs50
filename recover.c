@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
             fwrite(&buffer, sizeof(BYTE), 512, image);
         }
     }
+    return 0;
     free(buffer);
 
 
