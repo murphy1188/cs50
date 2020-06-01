@@ -34,9 +34,9 @@ bool check(const char *word)
     int hash_code = hash(word);
     node *cursor = table[hash_code];
     while (cursor != NULL && strcasecmp(cursor->word, word) != 0)
-        {
-            cursor = cursor->next;
-        }
+    {
+        cursor = cursor->next;
+    }
     if (cursor == NULL)
     {
         return false;
@@ -49,7 +49,8 @@ bool check(const char *word)
 
 // Hashes word to a number
 unsigned int hash(const char *word)
-{
+{   // Used hash function from Doug LLoyd's CS50 video on hash tables, added tolower function
+    // to conver all letters in each word to lowercase
     int sum = 0;
     char c;
     for (int i = 0; word[i] != '\0'; i++)
@@ -61,6 +62,7 @@ unsigned int hash(const char *word)
     return sum;
 }
 
+// Initialize hash table
 void init_hash_table()
 {
     for (int i = 0; i < N; i++)
@@ -76,26 +78,35 @@ bool load(const char *dictionary)
     node *tmp = NULL;
     char dict_word[LENGTH];
     
+    // Open dictionary
     FILE *dict = fopen(dictionary, "r");
+    // If file is NULL, returns false
     if (dict == NULL)
     {
         printf("File not opened\n");
         return false;
     }
+    //Reads each word from dictionary file, inserts each word to hash table
     while (fscanf(dict, "%s", dict_word) == 1)
     {
-
-                index = hash(dict_word);
-                tmp = malloc(sizeof(node));
-                strcpy(tmp->word, dict_word);
-                tmp->next = table[index];
-                table[index] = tmp;
-                word_counter++;
+        // Gets hash table index for each word from dictionary file
+        index = hash(dict_word);
+        // Allocates enough memory to create a node for each word being added to hash table 
+        tmp = malloc(sizeof(node));
+        // Copies each word from dictionary file into hash table
+        strcpy(tmp->word, dict_word);
+        // Changes pointer for added to word to head of the table index location
+        tmp->next = table[index];
+        // The added word is now at the head of the table index location
+        table[index] = tmp;
+        // Adds 1 to total word counter
+        word_counter++;
     }
     if (word_counter == 0)
     {
         printf("No words found\n");
     }
+    // Close dictionary file
     fclose(dict);
     return true;
 }
