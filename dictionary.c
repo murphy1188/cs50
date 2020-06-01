@@ -106,7 +106,6 @@ unsigned int size(void)
 {
     if (word_counter > 0)
     {
-        printf("%i words have been added\n", word_counter);
         return word_counter;
     }
     else
