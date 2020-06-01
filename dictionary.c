@@ -96,8 +96,6 @@ bool load(const char *dictionary)
     {
         printf("No words found\n");
     }
-
-    printf("%i words found\n", word_counter);
    
     return true;
 }
