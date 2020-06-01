@@ -23,7 +23,7 @@ int word_counter;
 
 
 // Number of buckets in hash table
-const unsigned int N = 100;
+const unsigned int N = 2500;
 
 // Hash table
 node *table[N];
