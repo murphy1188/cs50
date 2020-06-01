@@ -129,8 +129,7 @@ bool unload(void)
             free(tmp);
             tmp = cursor;
         }
-        return true;
     }
-    return false;
+    return true;
 }
 
