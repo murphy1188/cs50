@@ -96,7 +96,7 @@ bool load(const char *dictionary)
     {
         printf("No words found\n");
     }
-   
+    fclose(dict);
     return true;
 }
 
@@ -119,7 +119,7 @@ bool unload(void)
 {
     node *cursor;
     node *tmp;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < N + 1; i++)
     {
         tmp = table[i];
         cursor = table[i];
@@ -128,6 +128,10 @@ bool unload(void)
             cursor = cursor->next;
             free(tmp);
             tmp = cursor;
+        }
+        if (cursor == NULL)
+        {
+            free(tmp);
         }
     }
     return true;
