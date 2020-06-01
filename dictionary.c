@@ -49,7 +49,9 @@ bool check(const char *word)
 
 // Hashes word to a number
 unsigned int hash(const char *word)
-{   // Used hash function from Doug LLoyd's CS50 video on hash tables, added tolower function
+{   
+    
+    // Used hash function from Doug LLoyd's CS50 video on hash tables, added tolower function
     // to conver all letters in each word to lowercase
     int sum = 0;
     char c;
