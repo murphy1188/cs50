@@ -23,13 +23,13 @@ for c in s:
 # Calculate avg number of letters per 100 words
 l = 100 / float(words) * letters
 
-#Calculate avg number of sentences per 100 words
+# Calculate avg number of sentences per 100 words
 x = 100 / float(words) * sentences
 
-#Calculate Coleman-Liau index
+# Calculate Coleman-Liau index
 index = round((0.0588 * l) - (0.296 * x) - 15.8)
 
-#Output reading level
+# Output reading level
 if index > 0 and index < 17:
     print(f"Grade {index}")
 elif index > 16:
