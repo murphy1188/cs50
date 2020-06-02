@@ -1,10 +1,10 @@
 from cs50 import get_int
 
-n = int(get_int("Height: \n"))
+n = int(get_int("Height: "))
 while n < 1 or n > 8:
-    n = int(get_int("Height: \n"))
-for i in range(n + 1):
-    print(" " * (n-i), end="")
-    print("#" * i, end="")
+    n = int(get_int("Height: "))
+for i in range(n):
+    print(" " * (n - (i+1)), end="")
+    print("#" * (i + 1), end="")
     print("  ", end="")
-    print("#" * (i))
+    print("#" * (i + 1))
