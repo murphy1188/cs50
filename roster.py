@@ -15,9 +15,9 @@ if len(argv) != 2:
 db = SQL("sqlite:///students.db")
 
 # Run query to select name and birth year from house entered in cmnd line arg
-house_roster = db.execute("SELECT f, middle, last, birth FROM students WHERE house = ? ORDER BY last, f", argv[1])
+house_roster = db.execute("SELECT first, middle, last, birth FROM students WHERE house = ? ORDER BY last, first", argv[1])
 for row in house_roster:
     if row['middle'] != None:
-        print(f"{row['f']} {row['middle']} {row['last']}, born {row['birth']}")
+        print(f"{row['first']} {row['middle']} {row['last']}, born {row['birth']}")
     else:
-        print(f"{row['f']} {row['last']}, born {row['birth']}")
+        print(f"{row['first']} {row['last']}, born {row['birth']}")
