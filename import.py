@@ -30,7 +30,8 @@ with open(argv[1], "r") as characters:
         for name in row["name"].split():
             x = row["name"].split()
         if len(x) == 2:
-            db.execute("INSERT INTO students (first, last, house, birth) VALUES(?, ?, ?, ?)", x[0], x[1], row["house"], row["birth"])
+            db.execute("INSERT INTO students (first, last, house, birth) VALUES(?, ?, ?, ?)",
+                       x[0], x[1], row["house"], row["birth"])
 
         # Insert students who have first/middle/last name
         for name in row["name"].split():
