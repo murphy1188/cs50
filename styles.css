@@ -1,0 +1,134 @@
+h1
+{
+
+    color: black;
+    padding-top: 0.85rem;
+    margin-bottom: 0px;
+    text-align: center;
+}
+.navbar
+{
+    color: white;
+    list-style-type: none;
+}
+.navmenu
+{
+    background-color: #B61E2E;
+    list-style-type: none;
+    margin-bottom: 0rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.header_section
+{
+    background-image: url("mioh-hockey-header.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: bottom;
+    display: block;
+    height: 260px;
+}
+li
+{
+    display: inline-block;
+}
+ul
+{
+    padding-inline-start: 0;
+}
+table
+{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1rem;
+    width: 90%;
+}
+td
+{
+    border-bottom: 1px solid grey;
+    padding: 5px;
+    text-align: center;
+}
+.table_header
+{
+    text-align: center;
+    background-color: #B61E2E;
+    color: white;
+}
+.table_bio
+{
+    text-align: left;
+}
+.table_button
+{
+    border-bottom: 1px solid black;
+}
+.btn-secondary
+{
+    color: #fff;
+    background-color: #B61E2E;
+    border-color: #B61E2E;
+    width: -webkit-fill-available;
+    border-radius: 1.25rem;
+    transition: none;
+}
+.btn-secondary:hover
+{
+    background-color: #b61e2ead;
+    border-color: #b61e2ead;
+}
+.btn
+{
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.card_lg
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.card-body
+{
+    padding-top: 0.25rem;
+}
+.card-deck
+{
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container_footer
+{
+    background-color: #B61E2E;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+.footer_icon
+{
+    margin: 2rem;
+}
+.body-homepage
+{
+    background-color: #B61E2E;
+}
+.footer
+{
+    background-color: #B61E2E;
+}
+.footer_icon_group
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-link
+{
+    color: #B61E2E;
+}
