@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+<h1>Buy Stocks</h1>
+    <div class="quote_symbol">{{ quote.symbol }}</div>
+    <div class="quote_name">{{ quote.name }}</div>
+    <div>{{ quote.price | usd }}</div>
+    <form action="/buy" method="post">
+        <div class="form-group">
+            <input id="symbol2" autocomplete="off" autofocus class="form-control" value="{{ quote.symbol }}" name="symbol" placeholder="Stock Symbol" type="text">
+            <input id="price2" class="form-control" value="{{ quote.price }}" name="price" disabled="true" type="text">
+            <input id="shares" autocomplete="off" autofocus class="form-control" name="shares" placeholder="Number of Shares" type="text">
+        </div>
+        <div class="totalcost">Total Cost: </div><div class="totalprice" id="totalprice">$0.00</div>
+        <div class="buy-button"><button class="btn btn-primary" type="submit">Buy Shares</button></div>
+    </form>
+
+    <script>
+        shares = document.querySelector('#shares');
+        shares.onkeyup = function calculate() {
+            if (shares.value != '' && ({{ quote.price }} * shares.value > 0)) {
+                total = ({{ quote.price }} * shares.value);
+                document.querySelector('#totalprice').innerHTML = ('$' + total.toFixed(2));
+            } else {
+                document.querySelector('#totalprice').innerHTML = '$0.00';
+            }
+        };
+    </script>
+{% endblock %}

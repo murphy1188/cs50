@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<h1>Portfolio</h1>
+
+<table class="table_index table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Avg. Purchase Price</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Current Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in portfolio %}
+            <tr>
+                <td>{{ row['symbol'] }}</td>
+                <td>{{ row['shares'] }}</td>
+                <td>{{ row['price'] | usd }}</td>
+                <td>{{ row['curr_price'] | usd }}</td>
+                <td>{{ row['curr_val'] | usd }}</td>
+            </tr>
+        {% endfor %}
+        <tr class="cash">
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ balance | usd }}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr class="total">
+            <td colspan='4'></td>
+            <td>{{ total | usd }}</td>
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock %}
