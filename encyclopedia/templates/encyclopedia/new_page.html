@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    New Page
+{% endblock %}
+
+{% block body %}
+<h1>Create New Page</h1>
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+    {% endfor %}
+</div>
+{% endif %}
+    <form method="post" id="entryform">
+        {% csrf_token %}
+        {{ newPageForm|crispy }}
+        <div class="caption"><caption>* Required Field</caption></div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    
+{% endblock %}

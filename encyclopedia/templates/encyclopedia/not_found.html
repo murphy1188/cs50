@@ -1,0 +1,11 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ error.status_code }} Error
+{% endblock %}
+
+{% block body %}
+    {% if error.status_code == 404 %}
+        <h1>{{ error.status_code }} Error: Page not found</h1>
+    {% endif %}
+{% endblock %}
