@@ -1,0 +1,109 @@
+{% extends "auctions/layout.html" %}
+
+{% load my_filters %}
+
+{% block body %}
+<div id="listing-page">
+    <h2>Listing: {{ listing.title }}</h2>
+    {% if listing.image %}
+        <div><img class="listing-image" src="{{ listing.image }}" alt="{{ listing.title }}"></div><br>
+    {% else %}
+        <div><img class="listing-image" src="https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png" alt="No image available"></div><br>
+    {% endif %}
+    <div class="listing-price">
+        <div class="price-label">
+            {% if bids.count == 0 %}
+            Price {{ listing.startPrice | currency }}
+            {% else %}
+            Price: {{ bids.last.bid_amt | currency }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="bid-status">
+        {% if listing.active == True %}
+            {% if bids.count == 0 %}
+                This listing does not have any bids yet.
+            {% elif bids.count >= 1 %}
+                This listing has {{ bids.count }} bid(s).
+                {% if bids.last.bidder == user %}
+                    You are currently winning this auction.
+                {% elif bids.last.bidder != user %}
+                    {{ bids.last.bidder }} is currently winning this auction.
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% if user == listing.listingbids.last.bidder %}
+                <span class="np">Congratulations! You won this auction.</span>
+            {% else %}
+                <span class="np">This auction has ended.</span>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        <form action="{% url 'listing' listing.id %}" method="post">
+            {% csrf_token %}
+            {% if listing.active == True %}
+                <span class="currencyinput"> $
+                    <input type="text" placeholder="0.00" name="bid" id="bid">
+                </span>
+                <input type="submit" class="btn btn-primary" name="action" value="Place Bid">
+                {% if onWatchlist %}
+                    <input type="hidden" name="watchlistID" value="{{ onWatchlist.id }}"> 
+                    <input type="submit" class="btn btn-primary" name="action" value="Remove From Watchlist">
+                {% else %}
+                    <input type="submit" class="btn btn-primary" name="action" value="Add To Watchlist">
+                {% endif %}
+                {% if user == listing.created_by %}
+                    <input type="submit" class="btn btn-secondary" name="action" value="Close Listing">
+                {% endif %}
+            {% endif %}
+        </form>
+    {% else %}
+        <div class="bid-login">Please <a href="{% url 'login' %}">log in</a> to place a bid.</div>
+    {% endif %}
+    <div class="product-container">
+        <h3 class="uline">Details</h3>
+        <div class="listing-details"> 
+            <div><span class="details-label">Listed by: </span>{{ listing.created_by }}</div>
+            <div><span class="details-label">Active since: </span>{{ listing.created }}</div>
+            <div><span class="details-label">Category: </span>{{ listing.category }}</div>
+            <div><span class="details-label">Description: </span>{{ listing.details }}</div>
+        </div>
+        <h4 class="uline">Comments</h4>
+    
+        <ul class="comment-list striped-list">
+            {% for comment in comments %}
+                <li class="comment-item">
+                    {{ comment.comment }}<br>
+                    <ul class="comment-user-list">
+                        <li>
+                            User - {{ comment.commenter }}<br>
+                            {{ comment.date }}
+                        </li>
+                    </ul>
+                </li>
+            {% empty %}
+                <div>This listing does not have any comments yet.</div>
+            {% endfor %}
+        </ul>
+        {% if user.is_authenticated %}
+            <form action="{% url 'listing' listing.id %}" method="post">
+                {% csrf_token %}
+                <textarea placeholder="Enter comment here..." name="comment" id="comment"></textarea>
+                <input type="submit" class="btn btn-primary" name="action" value="Add Comment">
+            </form>
+        {% endif %}
+
+        
+            
+       
+    </div>
+
+</div>
+
+{% endblock %}
