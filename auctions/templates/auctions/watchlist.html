@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% load my_filters %}
+
+{% block body %}
+    <h2 class="index-title">Watchlist</h2>
+
+{% for listing in watchlist %}
+    <div class="row index-row">
+        {% if listing.watchedListing.image %}
+            <div class="col-4 vert-cent">
+                <a href="{% url 'listing' listing.id %}">
+                <img class="index_photo" src="{{ listing.watchedListing.image }}" alt="{{ listing.watchedListing.title }}"></a></div>
+        {% else %}
+            <div class="col-4 vert-cent">
+                <a href="{% url 'listing' listing.watchedListing.id %}">
+                <img class="index_photo" src="https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png" alt="No image available"></a></div>
+        {% endif %}
+        <div class="col-4 index_data vert-cent"><a href="{% url 'listing' listing.watchedListing.id %}">{{ listing.watchedListing.title }}</a><br>
+            <span class = index-details>{{ listing.watchedListing.details }}</span><br>
+            {% if listing.watchedListing.listingbids.last.bid_amt%}
+                <strong>Price: </strong>{{ listing.watchedListing.listingbids.last.bid_amt | currency }}<br>
+            {% else %}
+                <strong>Price: </strong>{{ listing.watchedListing.startPrice | currency }}<br>
+            {% endif %}
+
+        {% if listing.watchedListing.active == False %}
+            {% if user == listing.watchedListing.listingbids.last.bidder %}
+                <div class="ended">CONGRATULATIONS! YOU WON THIS AUCTION.</div>
+            {% else %}
+                <div class="ended">THIS LISTING HAS ENDED</div>
+            {% endif %}
+        {% endif %}
+        </div>
+        <div class="col-4 vert-cent">
+            <div class="wtchlist-btns">
+                <a href="{% url 'listing' listing.watchedListing.id %}" title="View {{ listing.title }}">
+                <input type="button" class="btn btn-primary" value="View Listing"></a>
+            </div>
+            <div class="wtchlist-btns">
+                <form action="{% url 'watchlist' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="watchlistID" value="{{ listing.id }}"> 
+                    <input type="submit" class="btn btn-primary" name="action" value="Remove From Watchlist" title="Remove From Watchlist">
+                </form>
+            </div>
+        </div>
+
+    </div>
+    {% empty %}
+    <div class="np row index-row">You don't have any listings in your watch list.</div>
+{% endfor %}
+
+{% endblock %}

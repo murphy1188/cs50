@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% load my_filters %}
+
+{% block body %}
+    <h2 class="index-title">Active Listings</h2>
+
+    {% for listing in listings %}
+    <div class="row index-row">
+        {% if listing.image %}
+            <div class="col-4 vert-cent">
+                <a href="{% url 'listing' listing.id %}" title="View {{ listing.title }}">
+                <img class="index_photo" src="{{ listing.image }}" alt="{{ listing.title }}"></a></div>
+        {% else %}
+            <div class="col-4 vert-cent">
+                <a href="{% url 'listing' listing.id %}" title="View {{ listing.title }}">
+                <img class="index_photo" src="https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png" alt="No image available"></a></div>
+        {% endif %}
+        <div class="col-5 index_data vert-cent"><a href="{% url 'listing' listing.id %}">{{ listing.title }}</a><br>
+            <span class = index-details>{{ listing.details }}</span><br>
+            {% if listing.listingbids.last.bid_amt %}
+                <strong>Price: </strong>{{ listing.listingbids.last.bid_amt | currency }}</div>
+            {% else %}
+                <strong>Price: </strong>{{ listing.startPrice | currency }}</div>
+            {% endif %}
+        <div class="col-3 vert-cent">
+            <a href="{% url 'listing' listing.id %}" title="View {{ listing.title }}">
+                <input type="button" class="btn btn-primary" value="View Listing"></a>
+        </div>
+    </div>
+    {% empty %}
+    No listings.
+    {% endfor %}
+
+{% endblock %}
