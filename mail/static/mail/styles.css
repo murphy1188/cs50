@@ -1,0 +1,38 @@
+textarea {
+    min-height: 400px;
+}
+#emails-view {
+    margin-bottom: 2rem;
+}
+#send {
+    margin-top: 10px;
+}
+.e-view-body {
+    margin-top: 1rem;
+}
+.bold {
+    font-weight: bold;
+}
+.mail_item {
+    border: 1px solid #222222;
+    padding: 4px;
+}
+.mail_item :hover {
+    cursor: pointer;
+}
+.mail-list-addr {
+    font-weight: bold;
+    margin-right: 15px;
+}
+.mail-list-date {
+    text-align: right;
+    color: #8b8b8b;
+}
+.trunc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.btn-primary:focus {
+    box-shadow: none;
+}
