@@ -1,0 +1,72 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block script %}
+    
+    <script src="{% static 'network/profile2.js' %}"></script>
+    <script src="{% static 'network/posts.js' %}"></script>
+    <script src="{% static 'network/paginate.js' %}"></script>
+    
+{% endblock %}
+
+{% block body %}
+<div class="width90">
+    <h2 id="profile-name">{{ username }}</h2>
+    {% if user.is_authenticated %}
+      <button id="follow-btn" class="btn btn-primary btn-sm follow-btn">Follow</button>
+    {% endif %}
+    
+</div>
+
+<div class="width90">
+  <!-- Followers -->
+  <div class="followerCount follow-count-btn"><span class="followerCount_btn" data-toggle='modal' data-target='#followerModal' data-whatever='followers'></span></div>
+  <div class="modal fade" id="followerModal" tabindex="-1" role="dialog" aria-labelledby="followerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCommentModalLabel">Followers</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-followers bld">
+            <div class="followerList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Following -->
+  <div class="followingCount follow-count-btn"><span class="followingCount_btn" data-toggle='modal' data-target='#followingModal' data-whatever='followings'></span></div>
+  <div class="modal fade" id="followingModal" tabindex="-1" role="dialog" aria-labelledby="followingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCommentModalLabel">Following</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-followers bld">
+            <div class="followingList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div> {{ posts }} </div>
+<div class="width90">
+    <div id="all-posts">
+        <div id="post"></div>
+    </div>
+</div>
+
+
+
+  {% endblock %}
+

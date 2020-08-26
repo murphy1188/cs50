@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block script %}
+    
+    <script src="{% static 'network/followingposts.js' %}"></script>
+    <script src="{% static 'network/posts.js' %}"></script>
+    
+{% endblock %}
+
+{% block body %}
+<div class="width90">
+    <h2 id="profile-name">Following</h2>
+</div>
+
+
+
+<div> {{ posts }} </div>
+<div class="width90">
+    <div id="all-posts">
+        <div id="post"></div>
+    </div>
+</div>
+
+
+
+  {% endblock %}
+

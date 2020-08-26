@@ -1,0 +1,55 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/network.js' %}"></script>
+    <script src="{% static 'network/paginate.js' %}"></script>
+    <script src="{% static 'network/posts.js' %}"></script>
+
+{% endblock %}
+
+{% block body %}
+<div class="width90">
+  <div id='open-post-form' data-toggle='modal' data-target='#newPostModal' data-whatever='followers'>What's on your mind, {{ request.user }}?</div>
+
+  <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newPostModalLabel">New post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="new-post-form">
+        <div class="modal-body">
+            <div class="form-group">
+              <input id="poster" type="text" hidden value="{{ request.user }}">
+              <textarea class="form-control" id="new_post_body" placeholder="What's on your mind, {{ request.user }}?" required 
+              oninvalid="this.setCustomValidity('Please enter a post to share.')" oninput="setCustomValidity('')"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button id="submit_post" type="submit" name="submit" data-dismiss="modal" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+</div>
+</div>
+
+
+<div> {{ posts }} </div>
+<div class="width90">
+    <div id="all-posts">
+        <div id="post"></div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
