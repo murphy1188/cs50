@@ -1,0 +1,550 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CrapperMapper</title>
+
+        <!-- Add font-awesome library -->
+        <script src="https://kit.fontawesome.com/b7fd9a855e.js" crossorigin="anonymous"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{% static 'crappermapper/poomoji.png' %}"/>
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+        
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+         <!-- Boostrap CSS-->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- static CSS stylesheet -->
+        <link href="{% static 'crappermapper/styles.css' %}" rel="stylesheet">
+
+        <!-- static js -->
+        <script src="{% static 'crappermapper/crappermapper.js' %}"></script>
+
+        <!-- google font CSS -->
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
+
+         
+
+    </head>
+<body>
+    <!-- Add review modal -->
+    <div class="modal fade" id="newReviewModal" tabindex="-1" role="dialog" aria-labelledby="newReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="newReviewModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            <form action="{% url 'review' %}" method="post" id="new-review-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="modal-loc-name" id="new-review-form-loc-name"></div>
+                    <div class="form-error" id="new-review-form-error">** Please select a rating 1-5 **</div>
+                    <div class="bold overall-rating">Overall Rating</div> 
+                    <div class="form-group rating">
+                        <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" required />
+                        <label for="star5"></label>
+                        <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                        <label for="star4"></label>
+                        <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                        <label for="star3"></label>
+                        <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                        <label for="star2"></label>
+                        <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                        <label for="star1"></label>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="form-group">
+                    <input id="poster" type="text" hidden value="user">
+                    <input class="form-control" type="text" id="review_title" placeholder="Enter a title for your review...">
+                    </div>
+                    <div class="form-group">
+                    <textarea class="form-control" id="review_text" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="submit_review" name="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <!-- Add new john modal -->
+    <div class="modal fade" id="newJohnModal" tabindex="-1" role="dialog" aria-labelledby="newJohnModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newJohnModalLabel">Add a new Crapper location</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <form method="post" id="new-john-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="modal-loc-name" id="new-john-form-loc-name"></div>
+                    <div class="form-error" id="new-john-form-error">** Please select a rating 1-5 **</div>
+                    <div class="bold overall-rating">Overall Rating*</div>
+                    <div class="form-group rating">
+                        <input id="poo5" name="star" type="radio" value="5" class="radio-btn hide" required />
+                        <label for="poo5"></label>
+                        <input id="poo4" name="star" type="radio" value="4" class="radio-btn hide"/>
+                        <label for="poo4"></label>
+                        <input id="poo3" name="star" type="radio" value="3" class="radio-btn hide"/>
+                        <label for="poo3"></label>
+                        <input id="poo2" name="star" type="radio" value="2" class="radio-btn hide"/>
+                        <label for="poo2"></label>
+                        <input id="poo1" name="star" type="radio" value="1" class="radio-btn hide"/>
+                        <label for="poo1"></label>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="form-group">
+                    <input id="poster" type="text" hidden value="user">
+                    <input class="form-control" type="text" id="review_title" placeholder="Enter a title for your review...">
+                    </div>
+                    <div class="form-group">
+                    <textarea class="form-control" id="review_text" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="required-note">* Required</div>
+                    </div>
+                    <input id="njf-location" type="text" class="new-john-form-location" hidden>
+                    <input id="njf-street-no" type="text" class="new-john-form-street-no" hidden>
+                    <input id="njf-street-name" type="text" class="new-john-form-street-name" hidden>
+                    <input id="njf-city" type="text" class="new-john-form-city" hidden>
+                    <input id="njf-state" type="text" class="new-john-form-state" hidden>
+                    <input id="njf-zip" type="text" class="new-john-form-zip" hidden>
+                    <input id="njf-county" type="text" class="new-john-form-county" hidden>
+                    <input id="njf-country" type="text" class="new-john-form-country" hidden>
+                    <input id="njf-address" type="text" class="new-john-form-address" hidden>
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="submit_new_john" name="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- View reviews modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reviewModalLabel">Reviews</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="reviews-modal-body" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+          </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="navbar heading">
+            
+            <div class="pos-f-b">
+                <nav class="navbar navbar-dark inl-blck">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
+                <div class="heading-logo navbar-brand">
+                    <img class="left-poo-logo poo-logo" src="{% static 'crappermapper/poomoji.png' %}">
+                    <h1>CrapperMapper</h1>
+                    <img class="right-poo-logo poo-logo" src="{% static 'crappermapper/poomoji.png' %}">
+                </div>
+                <div class="collapse" id="navbarToggleExternalContent">
+                    <div class="p-4">
+                    <ul class="navbar-nav mr-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <div>Hello, <span id="curr_user">{{ request.user }}</span>!</div>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item or">
+                                or
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div id="listings" class="listings"></div>
+    </div>
+    <!-- map div -->
+    <div id='mapid' class='map pad2'></div>
+
+
+    
+    <!-- map js -->
+    <script>
+        var token = 'pk.eyJ1IjoibXVycGh5MTE4OCIsImEiOiJja2VmMjBnOHIwcTUxMnVsZ2IzaHRtejU1In0.vpscTVWW9rfQ7jIKmHIFVg';
+
+        var map = L.map('mapid').fitWorld();
+
+        L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${token}`, {
+            type: 'application/json',
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            cluster: true,
+            clusterMaxZoom: 12,
+            id: 'mapbox/light-v10',
+            tileSize: 512,
+            zoomOffset: -1,
+            renderWorldCopies: false,
+        }).addTo(map);
+
+        map.locate({setView: true, maxZoom: 20});
+
+        map.on('dragend', updateMarkers);
+        function updateMarkers(e) {
+            center = map.getCenter();
+            buildLocationList(center, 'all');
+        }
+
+        var user_location;
+
+        function onLocationFound(e) {
+            var radius = e.accuracy;
+
+            u_locate = L.marker(e.latlng).addTo(map);
+            var u_locate_pop = document.createElement('div');
+            u_locate_pop.className = 'curr_location';
+            u_locate_pop.innerHTML = 'Your approximate location.';
+            u_locate.bindPopup(u_locate_pop).openPopup();
+            user_location = e.latlng;
+            buildLocationList(e.latlng, 'all');
+            map.fitBounds([
+                [(e.latlng.lat + 0.02), (e.latlng.lng + 0.02)],
+                [(e.latlng.lat - 0.02), (e.latlng.lng - 0.02)]
+            ])
+        }
+
+        map.on('locationfound', onLocationFound);
+        
+        var johnIcon = L.icon({
+            iconUrl: 'static/crappermapper/restroom-icon.png',
+            iconSize: [15, 24], // size of icon
+            iconAnchor: [8, 0], // point of the icon which will correspond to marker's location
+            popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        });
+
+        function buildLocationList(loc, location_id) {
+            fetch(`/fetch_data/${location_id}?lat=${loc.lat}&lng=${loc.lng}`)
+            .then(response => response.json())
+            .then(johns => {
+                load_sidebar_data(johns, loc);
+            })
+        }
+
+        var markers = {};
+
+        function getDistance(origin, destination) {
+            // return distance in meters
+            var lon1 = toRadian(origin[1]),
+                lat1 = toRadian(origin[0]),
+                lon2 = toRadian(destination[1]),
+                lat2 = toRadian(destination[0]);
+            var deltaLat = lat2 - lat1;
+            var deltaLon = lon2 - lon1;
+
+            var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+            var c = 2 * Math.asin(Math.sqrt(a));
+            var Earth_Radius = 6371;
+            return c * Earth_Radius * 1000;
+        }
+
+        function toRadian(degree) {
+            return degree*Math.PI/180;
+        }
+
+        function load_sidebar_data(data, loc) {
+            document.getElementById('listings').innerHTML = "";
+            if (document.getElementById('curr_user') != null) {
+                curr_user = document.getElementById('curr_user').innerHTML;
+            }
+            else {
+                curr_user = null;
+            }
+            data.data.forEach(john => {
+                var listings = document.getElementById('listings');
+                var listing = listings.appendChild(document.createElement('div'));
+                /* Assign unique id to the listing. */
+                listing.id = "listing-" + john.id;
+                listing.className = 'item';
+                
+                /* Add link to individual listing created above */
+                var link = listing.appendChild(document.createElement('a'));
+                link.href ='#';
+                link.className = 'title';
+                link.id = "link-" + john.id
+                link.innerHTML = john.display_name;
+                distance = listing.appendChild(document.createElement('div'));
+
+                // Get distance of john location from user's current location
+                latlng = [john.geometry.coordinates[0], john.geometry.coordinates[1]];
+                meters = getDistance([user_location.lat, user_location.lng], [john.geometry.coordinates[0], john.geometry.coordinates[1]]);
+                miles = (meters / 1609.3440057765).toFixed(2);
+                distance.className = 'distance';
+                distance.innerHTML = 'Distance: ' + miles + ' miles';
+
+                /* Add details to individual listing created above */
+                var details = listing.appendChild(document.createElement('div'));
+                reviewCount = john.reviews.length;
+                var avgReview;
+                if (reviewCount > 0) {
+                    avgReview = avg_review(john);
+                    details.innerHTML = `<a href="" id="open-reviews-modal-${john.id}" data-toggle="modal" data-target="#reviewModal" data-whatever="reviews">${reviewCount} <span id="rev-count-${john.id}">Reviews</span></a>` +
+                    `<div class="inline rev-list-avg">${avgReview}/5</div>` +
+                    `<div class="poo list-rating inline" style="--rating: ${avgReview};" aria-label="Rating of this product is ${avgReview} out of 5.">`;
+                    
+                    if (reviewCount == 1) {
+                        document.querySelector(`#rev-count-${john.id}`).innerHTML = 'Review';
+                    }
+                    document.getElementById(`open-reviews-modal-${john.id}`).onclick = () => {
+                        document.getElementById('reviews-modal-body').innerHTML = "";
+                        john.reviews.slice().reverse().forEach(review => {
+                            review_item = document.createElement('li');
+                            review_item.className = "review_item";
+                            review_item.innerHTML = `<div class="rev1-4 rev-list-rate bold">Rating - ${review.rating}/5</div>` + 
+                            `<div class="review-timestamp bold">Reviewed on: ${review.timestamp}</div>` + 
+                            `<div class="poo list-rating rev-item rev1-4 inline" style="--rating: ${review.rating};" aria-label="Rating of this product is ${review.rating} out of 5."></div>` + 
+                            `<div id="review-title-${review.reviewID}" class="review-title bold inline"></div>` +
+                            `<div id="review-text-${review.reviewID}" class="rev1-4 review-text"></div>` +
+                            `<div class="review-user">- ${review.username}</div>`;
+
+                            document.getElementById('reviews-modal-body').append(review_item);
+                            if (review.review_title != null){
+                                document.getElementById(`review-title-${review.reviewID}`).innerHTML = review.review_title;
+                            }
+                            if (review.review_text != null){
+                                document.getElementById(`review-text-${review.reviewID}`).innerHTML = review.review_text;
+                            }
+                        })
+                    }
+                }
+                else {
+                    details.innerHTML = '<div class="no-rev-mess">Sorry, this crapper does not have any reviews yet.</div>' +
+                    '<div class="poo list-rating" style="--rating: 0;" aria-label="Rating of this product is 0 out of 5.">';
+                    avgReview = 0;
+                }
+
+                /* Add john points to map */
+                markers[john.id] = L.marker([john.geometry.coordinates[0], john.geometry.coordinates[1]], {icon: johnIcon});
+                markers[john.id].className = 'marker';
+                markers[john.id].addTo(map);
+                markers[john.id].addEventListener('click', function(e){
+                    currentMarker = markers[john.id]
+                    var clickedListing = john;
+                    flyToJohn(clickedListing);
+                    var activeItem = document.getElementsByClassName('active');
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('active');
+                    }
+                    createPopUp(clickedListing);
+                });
+                link.addEventListener('click', function(e){
+                    
+                    currentMarker = markers[john.id]
+                    var clickedListing = john;
+                    flyToJohn(clickedListing);
+                    createPopUp(clickedListing);
+                    currentMarker = markers[john.id]
+                    var activeItem = document.getElementsByClassName('active');
+                    e.stopPropagation();
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('active');
+                    }
+                    this.parentNode.classList.add('active');
+                });
+        });  
+        }
+
+        /* Function to make map fly to associated john location */
+        function flyToJohn(currentJohn) {
+            var lat = currentJohn.geometry.coordinates[0];
+            var long = currentJohn.geometry.coordinates[1]
+            map.flyTo([lat,long], 16);
+        }
+
+        /* Function to create popup */
+        var alreadyReviewed;
+        function createPopUp(currentJohn) {
+            if (currentJohn.reviews.length > 0) {
+                avgReview = avg_review(currentJohn);
+            }
+            else {
+                avgReview = 0
+            }
+            
+            alreadyReviewed = false;
+            currentJohn.reviews.forEach(review => {
+                if (curr_user == review.username) {
+                    alreadyReviewed = true;
+                }
+            })
+            var popUps = document.getElementsByClassName('leaflet-popup');
+
+            /** Check if already a popup on the map, if so then remove it **/
+            if (popUps[0]) popUps[0].remove();
+
+            var lat = currentJohn.geometry.coordinates[0];
+            var lng = currentJohn.geometry.coordinates[1];
+            var latlng = [lat, lng];
+            var popup = L.popup()
+                .setLatLng(latlng)
+                .setContent('<h3>' + currentJohn.display_name + '</h3>' + 
+                    `<div class="review_count bold" style="padding-bottom: 0px;">${currentJohn.reviews.length} Reviews</div>` +
+                    `<div class="poo" style="--rating: ${avgReview};" aria-label="Rating of this product is ${avgReview} out of 5."></div>` +
+                    `<div id="add-review-btn-${currentJohn.id}"></div>`)
+                   
+                .openOn(map);
+                if (curr_user != null && alreadyReviewed == false) {
+                    document.querySelector(`#add-review-btn-${currentJohn.id}`).innerHTML = 
+                    `<a href="" id="open-review-form-${currentJohn.id}" data-toggle="modal" data-target="#newReviewModal" data-whatever="review">Add Review</a>`;
+                    document.getElementById(`open-review-form-${currentJohn.id}`).onclick = () => new_review_modal(currentJohn);
+                }
+                if (alreadyReviewed == true) {
+                    document.querySelector(`#add-review-btn-${currentJohn.id}`).innerHTML = 
+                    `<a href="" id="edit-review-form-${currentJohn.id}" data-toggle="modal" data-target="#newReviewModal" data-whatever="review">Edit Your Review</a>`;
+                    document.getElementById(`edit-review-form-${currentJohn.id}`).onclick = () => open_edit_review_modal(currentJohn, curr_user);
+                }
+                if (currentJohn.reviews.length == 1) {
+                    document.querySelector(".review_count").innerHTML = `${currentJohn.reviews.length} Review`;
+                }
+            listing = document.querySelector(`#listing-${currentJohn.id}`);
+            listing.classList.add('active');
+            listing.scrollIntoView(true);
+            if (document.querySelector(`#listing-${currentJohn.id}`).className == 'active') {
+                console.log(`listing-${currentJohn.Id} is active`);
+            }
+        }
+
+        // Disables zoom in on double-click
+        map.doubleClickZoom.disable(); 
+
+        var popup = L.popup({className: 'newLocPop'});
+
+        function onMapClick(e) {
+            if (document.querySelector('#curr_user')) {
+                latlng = e.latlng;
+                console.log(latlng);
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent(`<a href="" class="new-crapper-btn" id="add-new-crapper-btn" data-toggle="modal" data-target="#newJohnModal" data-whatever="newCrapper">Add New Crapper</a>`)
+                    .openOn(map);
+                
+                new_john_location_modal(latlng);
+            }
+        }
+
+        map.on('dblclick', onMapClick);
+    
+        function new_john_location_modal(latlng) {
+            document.querySelector('#newJohnModal').hidden = false;
+            document.querySelector('#new-john-form-error').style.display = 'none';
+            document.querySelector('#review_title').value = "";
+            document.querySelector('#review_text').value = "";
+            for (i = 1; i < 6; i++) {
+                poo = document.getElementById(`poo${i}`);
+                if (poo.checked == true) {
+                    poo.checked = false;
+                }
+            }
+            fetch(`/reverse_geocode?lat=${latlng.lat}&lng=${latlng.lng}`)
+            .then(response => response.json())
+            .then(loc_data => {
+                console.log('data retrieved');
+                address = loc_data.data.address.replace(", United States of America", "");
+                document.querySelector('#new-john-form-loc-name').innerHTML = address;
+                document.querySelector('.new-john-form-address').value = address;
+                document.querySelector('.new-john-form-location').value = loc_data.data.location;
+                document.querySelector('.new-john-form-street-no').value = loc_data.data.street_number;
+                document.querySelector('.new-john-form-street-name').value = loc_data.data.street_name;
+                document.querySelector('.new-john-form-city').value = loc_data.data.city;
+                document.querySelector('.new-john-form-state').value = loc_data.data.state;
+                document.querySelector('.new-john-form-zip').value = loc_data.data.zip_code;
+                document.querySelector('.new-john-form-county').value = loc_data.data.county;
+                document.querySelector('.new-john-form-country').value = loc_data.data.country_code;
+            })
+
+            stars = document.getElementsByName('star')
+            
+            document.querySelector('#submit_new_john').onclick = () => {
+                document.querySelector('#new-john-form-error').style.display = 'block'
+            }
+            
+            stars.forEach(star => {
+                var isRated = false;
+                star.onchange = () => {
+                    isRated = check_selection();
+                    if (isRated == false) {
+                        document.querySelector('#submit_new_john').onclick = () => {
+                            document.querySelector('#new-john-form-error').style.display = 'block';
+                        }
+                    }
+                    else {
+                        document.querySelector('#submit_new_john').onclick = () => {
+                            document.querySelector('#newJohnModal').hidden = true;
+                            document.querySelector('.modal-backdrop').classList.replace('show', 'hide');
+                            submit_new_john(latlng);
+                        }
+                    }
+                }
+            })
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

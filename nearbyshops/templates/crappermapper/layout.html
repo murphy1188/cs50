@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CrapperMapper</title>
+
+        <!-- Add font-awesome library -->
+        <script src="https://kit.fontawesome.com/b7fd9a855e.js" crossorigin="anonymous"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{% static 'crappermapper/poomoji.png' %}"/>
+
+         <!-- Boostrap CSS-->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- static CSS stylesheet -->
+        <link href="{% static 'crappermapper/styles.css' %}" rel="stylesheet">
+
+        <!-- google font CSS -->
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
+
+    </head>
+<body>
+    <div class="navbar heading">
+        
+        <div class="pos-f-b">
+            <nav class="navbar navbar-dark inl-blck">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+            <div class="heading-logo navbar-brand">
+                <img class="left-poo-logo poo-logo" src="{% static 'crappermapper/poomoji.png' %}">
+                <h1>CrapperMapper</h1>
+                <img class="right-poo-logo poo-logo" src="{% static 'crappermapper/poomoji.png' %}">
+            </div>
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="p-4">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% block body %}
+    {% endblock %}
+
+
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
