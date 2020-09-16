@@ -1,0 +1,498 @@
+body {
+    color: #404040;
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+.user-form {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #404040;
+    border-radius: 12px;
+}
+
+.right-poo-logo {
+    margin-left: 5px;
+}
+
+.left-poo-logo {
+    margin-right: 5px;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+  
+h1 {
+    font-size: 2vw;
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 20px 2px;
+}
+
+a {
+    color: #404040;
+    text-decoration: none;
+}
+  
+a:hover {
+    color: #101010;
+}
+  
+.sidebar {
+    position: absolute;
+    width: 33.3333%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+  
+.pad2 {
+    padding: 20px;
+}
+  
+.map {
+    position: absolute;
+    left: 33.3333%;
+    width: 66.6666%;
+    top: 0;
+    bottom: 0;
+}
+
+.heading {
+    background:#fff;
+    border-bottom:1px solid #eee;
+    min-height:60px;
+    line-height:60px;
+    padding:0 10px;
+    background-color: #00853e;
+    color: #fff;
+}
+  
+.listings {
+    height: 90%;
+    overflow: auto;
+    padding-bottom: 60px;
+}
+  
+.listings .item {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    text-decoration: none;
+}
+  
+.listings .item:last-child {
+    border-bottom: none; 
+}
+
+.listings .item .title {
+    display: block;
+    color: #00853e;
+    font-weight: 700;
+    font-size: 20px;
+}
+  
+.listings .item .title small { 
+    font-weight: 400; 
+}
+  
+.listings .item.active .title,
+.listings .item .title:hover { 
+    color: #8cc63f; 
+}
+  
+.listings .item.active {
+    background-color: #f1f1f1;
+}
+  
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #00853e;
+    border-radius: 0;
+}
+
+.clearfix {
+    display: block;
+}
+
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.mapbox-popup {
+    padding-bottom: 50px;
+}
+.leaflet-popup-close-button {
+    display: none;
+  }
+  
+.leaflet-popup-content {
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+    padding: 0;
+    width: 200px;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
+.leaflet-popup-content h3 {
+    background: #91c949;
+    color: #fff;
+    margin: 0;
+    display: block;
+    padding: 10px;
+    border-radius: 12px 12px 0 0;
+    font-weight: 700;
+    margin-top: -15px;
+    font-size: large;
+}
+
+.leaflet-popup-content h4 {
+    margin: 0;
+    display: block;
+    padding: 10px;
+    font-weight: 400;
+}
+
+.leaflet-popup-content a {
+    padding:10px;
+    display: block;
+    font-size: medium;
+    text-align: left;
+}
+
+.leaflet-popup-content div {
+    padding: 10px;
+}
+
+.leaflet-container .leaflet-marker-icon {
+    cursor: pointer;
+}
+
+.leaflet-popup-anchor-top > .leaflet-popup-content {
+    margin-top: 15px;
+}
+
+.leaflet-popup-anchor-top > .leaflet-popup-tip {
+    border-bottom-color: #91c949;
+}
+
+.curr_location {
+    font-weight: bold;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.popup-star-rating{
+    text-align: center;
+}
+
+:root {
+    --star-size: 60px;
+    --star-color: rgb(177, 177, 177);
+    --star-background: #fc0;
+}
+.poo {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: block;
+    font-size: xx-large;
+    font-family: "Font Awesome 5 Free";
+    line-height: 1;
+    text-align: center;
+}
+.poo::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f2fe" "\f2fe" "\f2fe" "\f2fe" "\f2fe";
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.list-rating {
+    text-align: left;
+}
+
+.modal-content {
+    border-radius: 12px;
+}
+
+.btn-primary {
+    background-color: #00853e;
+    border-color: #00853e;
+}
+
+.btn-primary:hover {
+    background-color: #8cc63f;
+    border-color: #8cc63f;
+}
+
+.modal-header {
+    color: #fff;
+    background-color: #00853e;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.modal-header .close {
+    color: #fff;
+}
+
+.modal-header h5 {
+    font: 600 30px/30px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+}
+
+.fa-bars {
+    float: left;
+    padding: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.heading-logo {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heading-logo img {
+    display: inline-block;
+    height: 2vw;
+}
+
+.heading-logo h1 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.inl-blck {
+    display: inline-block;
+}
+
+.nav-item {
+    font-weight: bold;
+    font-size: 1.3rem;
+    line-height: normal;
+}
+
+.nav-item a {
+    color: #fff;
+}
+
+.or {
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* CSS for new review form */
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: fit-content;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+    font-size: xx-large;
+    margin-top: 0.5rem;
+}
+
+.rating > label::before {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    font-family: "Font Awesome 5 Free";
+    content: "\f2fe";
+    font-weight: 900;
+    letter-spacing: 3px;
+    cursor: pointer;
+    color: rgb(177, 177, 177);
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover::before,
+.rating > label:hover ~ label::before,
+.rating > input.radio-btn:checked ~ label::before,
+.rating > input.radio-btn:checked ~ label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    letter-spacing: 3px;
+    position: relative;
+    left: 0;
+    color: #fc0;
+}
+
+.review-user {
+    font-weight: bolder;
+    font-size: large;
+    text-align: left;
+    padding-left: 2rem;
+    display: inline-block;
+}
+
+.review-timestamp {
+    text-align: right;
+    width: 50%;
+    display: inline-block;
+}
+
+.rev-item {
+    font-size: large;
+}
+
+.rev1-4 {
+    padding-left: 1.4rem;
+    padding-bottom: 1rem;
+}
+
+.rev-list-rate {
+    width: 50%;
+    display: inline-block;
+    font-size: large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.review-title {
+    padding-inline-start: 1rem;
+    font-style: italic;
+}
+
+.review-text {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.rev-list-avg {
+    font-size: xx-large;
+    padding-right: 1rem;
+    font-weight: bold;
+}
+
+.listings a {
+    font-size: large;
+    display: block;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.distance {
+    font-size: small;
+}
+
+.no-rev-mess {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+#add-review-btn {
+    padding: 0px;
+}
+
+.overall-rating {
+    font-size: large;
+    padding-bottom: 10px;
+}
+
+.review_item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 2rem;
+    border-bottom: 1px solid #dee2e6;
+    list-style: none;
+}
+
+.review_item:last-child {
+    border-bottom: none;
+}
+
+.review_count {
+    font-style: italic;
+}
+
+.revs-modal-edit-btn {
+    float: right;
+}
+
+.newLocPop .leaflet-popup-content-wrapper,
+.newLocPop .leaflet-popup-tip {
+    background-color: #8cc63f;
+}
+
+.newLocPop .leaflet-popup:hover {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    font-size: larger;
+}
+
+.newLocPop a {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.modal-loc-name {
+    font-weight: bold;
+    font-size: x-large;
+    padding-bottom: 1rem;
+}
+
+.form-error {
+    display: none;
+    font-style: italic;
+    color: red;
+    font-weight: 600;
+}
+
+.required-note {
+    font-style: italic;
+}
+
+#reviews-modal-body {
+    overflow-y: scroll;
+    max-height: 25rem;
+}
